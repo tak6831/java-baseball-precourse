@@ -33,8 +33,7 @@ class BaseballControllerTest {
     @Test
     void 플레이어에게_서로다른_수_입력받기(){
         //readLine 테스트를 어떻게 해야하는지?
-//        Player player = baseballController.inputNumberFromPlayer();
-        Player player = baseballController.inputNumberFromPlayerTest("1","2","4");
+        Player player = baseballController.inputNumberFromPlayer();
         assertThat(player).isInstanceOf(Player.class);
     }
 //    입력 값 검증
@@ -68,4 +67,6 @@ class BaseballControllerTest {
             baseballController.gameSet(new BallCount(3,0));
         }).isInstanceOf(InterruptedException.class);
     }
+//    에러 시 앱 종료
+//    게임 종료시 게임 다시하기 및 앱 종료.
 }

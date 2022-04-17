@@ -24,29 +24,16 @@ public class BaseballController {
         ball.setThirdNumber(list.get(2));
         return ball;
     }
-    public Player inputNumberFromPlayer() throws IllegalArgumentException{
+    public Player inputNumberFromPlayer(){
         /** 실제사용 **/
         Player player = new Player();
-        System.out.println("1~9까지 중복되지 않는 볼 배합을 입력해 주세요.");
-        System.out.println("첫번쨰 숫자 :");
-        player.setFirstNumber(Integer.parseInt(readLine()));
-        System.out.println("두번째 숫자 :");
-        player.setSecondNumber(Integer.parseInt(readLine()));
-        System.out.println("세번째 숫자 :");
-        player.setThirdNumber(Integer.parseInt(readLine()));
+        System.out.println("1~9까지 3자리를 입력해 주세요.");
+        String inputString = readLine();
+        if(inputString.length()!=3) throw new IllegalArgumentException("입력 갯 수 에러");
+        player.setFirstNumber(Integer.parseInt(inputString.substring(0,1)));
+        player.setSecondNumber(Integer.parseInt(inputString.substring(1,2)));
+        player.setThirdNumber(Integer.parseInt(inputString.substring(2,3)));
         System.out.println("입력하신 볼배합 : "+player.toString());
-        return player;
-    }
-    public Player inputNumberFromPlayerTest(String input1,String input2,String input3) throws IllegalArgumentException{
-        /**테스트용**/
-        Player player = new Player();
-        System.out.println("1~9까지 중복되지 않는 볼 배합을 입력해 주세요.");
-        System.out.println("첫번쨰 숫자 : "+ input1);
-        player.setFirstNumber(Integer.parseInt(input1));
-        System.out.println("두번째 숫자 : "+ input2);
-        player.setSecondNumber(Integer.parseInt(input2));
-        System.out.println("세번째 숫자 : "+ input3);
-        player.setThirdNumber(Integer.parseInt(input3));
         return player;
     }
     public void validationUniqueNumber(Player player){
@@ -64,7 +51,6 @@ public class BaseballController {
     public BallCount checkBallCount(Ball ball, Player player){
         int strikeScore = 0;
         int ballScore = 0;
-
         for(int i=0;i<player.toList().size();i++){
             if(player.toList().get(i)==ball.toList().get(i)){
                 strikeScore++;
@@ -75,7 +61,6 @@ public class BaseballController {
                 continue;
             };
         }
-
         return new BallCount(strikeScore,ballScore);
     }
     public String printScore(BallCount ballCount){
@@ -85,7 +70,20 @@ public class BaseballController {
         if(result=="") result = "낫싱";
         return result;
     }
-    public void gameSet(BallCount ballCount) throws InterruptedException {
-        if(ballCount.getStrike()==3) throw new InterruptedException("게임셋");
+    public boolean gameSet(BallCount ballCount){
+        if(ballCount.getStrike()==3) return true;
+        return false;
+    }
+
+    public void playingLogic(Ball ball){
+        Player player = new Player();
+        BallCount ballCount = new BallCount();
+        while (!gameSet(ballCount)){
+            player = inputNumberFromPlayer();
+            validationUniqueNumber(player);
+            validationInRange(player);
+            ballCount = checkBallCount(ball,player);
+            System.out.println(printScore(ballCount));
+        }
     }
 }

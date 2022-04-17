@@ -4,6 +4,10 @@ public class BallCount {
     private int strike;
     private int ball;
 
+    public BallCount() {
+
+    }
+
     public int getStrike() {
         return strike;
     }
