@@ -1,13 +1,14 @@
 package baseball.entity;
 
-public class Ball {
-    private int firstNumber;
-    private int secondNumber;
-    private int thirdNumber;
-
-    public Ball(){
+public class Player {
+    public Player(){
 
     }
+    private int firstNumber;
+
+    private int secondNumber;
+
+    private int thirdNumber;
 
     public int getFirstNumber() {
         return firstNumber;
@@ -33,7 +34,7 @@ public class Ball {
         this.thirdNumber = thirdNumber;
     }
 
-    public Ball(int firstNumber, int secondNumber, int thirdNumber) {
+    public Player(int firstNumber, int secondNumber, int thirdNumber) {
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.thirdNumber = thirdNumber;
@@ -41,14 +42,10 @@ public class Ball {
 
     @Override
     public String toString() {
-        return "Ball{" +
+        return "Player{" +
                 "firstNumber=" + firstNumber +
                 ", secondNumber=" + secondNumber +
                 ", thirdNumber=" + thirdNumber +
                 '}';
-    }
-    public boolean isReady(){
-        if(firstNumber==0 || secondNumber==0 || thirdNumber ==0 ) return false;
-        return true;
     }
 }
