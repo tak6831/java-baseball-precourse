@@ -25,7 +25,6 @@ public class BaseballController {
         return ball;
     }
     public Player inputNumberFromPlayer(){
-        /** 실제사용 **/
         Player player = new Player();
         System.out.println("1~9까지 3자리를 입력해 주세요.");
         String inputString = readLine();
@@ -33,7 +32,7 @@ public class BaseballController {
         player.setFirstNumber(Integer.parseInt(inputString.substring(0,1)));
         player.setSecondNumber(Integer.parseInt(inputString.substring(1,2)));
         player.setThirdNumber(Integer.parseInt(inputString.substring(2,3)));
-        System.out.println("입력하신 볼배합 : "+player.toString());
+        System.out.println("입력한 볼 배합 : "+player.toString());
         return player;
     }
     public void validationUniqueNumber(Player player){
@@ -42,26 +41,27 @@ public class BaseballController {
                 ||player.getThirdNumber()==player.getFirstNumber()) throw new IllegalArgumentException("중복된 수를 입력했습니다.");
     }
     public void validationInRange(Player player){
-        for(int i : player.toList()){
-            if(i<1 || i>9){
-                throw new IllegalArgumentException("범위에 벗어난 수를 입력하셨습니다.");
-            }
-        }
+        for(int i : player.toList()) checkNumber(i);
+    }
+    public void checkNumber(int i){
+        if(i<1 || i>9) throw new IllegalArgumentException("범위에 벗어난 수를 입력하셨습니다.");
     }
     public BallCount checkBallCount(Ball ball, Player player){
-        int strikeScore = 0;
-        int ballScore = 0;
+        BallCount ballCount = new BallCount();
         for(int i=0;i<player.toList().size();i++){
-            if(player.toList().get(i)==ball.toList().get(i)){
-                strikeScore++;
-                continue;
-            }
-            if(ball.toList().contains(player.toList().get(i))){
-                ballScore++;
-                continue;
-            };
+            putBallCount(ballCount, ball, player, i);
         }
-        return new BallCount(strikeScore,ballScore);
+        return ballCount;
+    }
+    public void putBallCount(BallCount ballCount, Ball ball, Player player, int i){
+        if(player.toList().get(i)==ball.toList().get(i)){
+            ballCount.setStrike(ballCount.getStrike()+1);
+            return;
+        }
+        if(ball.toList().contains(player.toList().get(i))){
+            ballCount.setBall(ballCount.getBall()+1);
+            return;
+        };
     }
     public String printScore(BallCount ballCount){
         String result = "";
@@ -76,10 +76,9 @@ public class BaseballController {
     }
 
     public void playingLogic(Ball ball){
-        Player player = new Player();
         BallCount ballCount = new BallCount();
         while (!gameSet(ballCount)){
-            player = inputNumberFromPlayer();
+            Player player = inputNumberFromPlayer();
             validationUniqueNumber(player);
             validationInRange(player);
             ballCount = checkBallCount(ball,player);

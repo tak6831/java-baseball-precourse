@@ -17,12 +17,8 @@ public class Application {
             @Override
             public void run(){
                 while(true){
-                    Ball ball = new Ball();
                     System.out.println("야구 게임을 시작합니다.");
-                    ball = baseballController.putNumberToEntity();
-                    System.out.println("볼 배합 완료");
-                    System.out.println("플레이어 차레입니다.");
-                    baseballController.playingLogic(ball);
+                    baseballController.playingLogic(baseballController.putNumberToEntity());
                     System.out.println("다시시작 하시겠습니까? Yes:1 / No:2");
                     if(!readLine().equals("1")) break;
                 }
