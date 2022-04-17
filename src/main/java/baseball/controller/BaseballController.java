@@ -1,19 +1,26 @@
 package baseball.controller;
 
+import baseball.entity.Ball;
+
+import java.util.List;
 import java.util.Random;
 
-import camp.nextstep.edu.missionutils.Randoms;
+import static camp.nextstep.edu.missionutils.Console.readLine;
+import static camp.nextstep.edu.missionutils.Randoms.pickNumberInRange;
 
 public class BaseballController {
 
-    Randoms randoms;
-//    생성된 수 배열에 넣기.
-    public int putNumberToArray(int start, int end){
-        return randoms.pickNumberInRange(start,end);
+//      임의의 1-9까지 서로다른 수 생성
+    public int makeRandomNumber(){
+        return pickNumberInRange(1,9);
+    }
+//    생성된 수 볼배합에 넣기.
+    public Ball putNumberToEntity(){
+        return new Ball(makeRandomNumber(),makeRandomNumber(),makeRandomNumber());
     }
 //    플레이어에게 1-9 서로다른 수 입력 받기.
     public void inputNumberFromPlayer(){
-
+        readLine();
     }
 //    입력 값 검증
     public void confirmNumber(){
