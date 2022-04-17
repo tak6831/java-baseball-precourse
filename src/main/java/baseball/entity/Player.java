@@ -1,5 +1,8 @@
 package baseball.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     public Player(){
 
@@ -47,5 +50,12 @@ public class Player {
                 ", secondNumber=" + secondNumber +
                 ", thirdNumber=" + thirdNumber +
                 '}';
+    }
+    public List<Integer> toList(){
+        List<Integer> list = new ArrayList<>();
+        list.add(firstNumber);
+        list.add(secondNumber);
+        list.add(thirdNumber);
+        return list;
     }
 }

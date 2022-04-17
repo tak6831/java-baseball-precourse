@@ -2,6 +2,7 @@ package baseball.controller;
 
 import baseball.entity.Ball;
 import baseball.entity.Player;
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BaseballControllerTest {
     BaseballController baseballController = new BaseballController();
-    //    임의의 1-9까지 서로다른 수 생성
+    //    임의의 1-9까지 서로다른 수 생성 숫자가 겹칠 수 있어서 사용하지 않음.
     @Test
     void 랜덤한_숫자만들기(){
         for(int i=0;i<baseballController.makeRandomNumber().size();i++){
@@ -30,13 +31,22 @@ class BaseballControllerTest {
 //    플레이어에게 1-9 서로다른 수 입력 받기.
     @Test
     void 플레이어에게_서로다른_수_입력받기(){
-        try {
-            Player player = baseballController.inputNumberFromPlayer();
-        }catch (IllegalArgumentException e){
-            //입력 값 오류 앱 종료.
-        }
+
+        Player player = baseballController.inputNumberFromPlayer();
     }
 //    입력 값 검증
+    @Test
+    void 중복된수입력체크(){
+        assertThatThrownBy(() -> {
+            baseballController.validationUniqueNumber(new Player(1, 2, 2));
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+    @Test
+    void 입력한_수_범위체크(){
+        assertThatThrownBy(() -> {
+            baseballController.validationInRange(new Player(1,2,0));
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
 //    검증 후 결과 값 리턴
 //    정답 시 게임 종료
 //    에러 시 앱 종료
