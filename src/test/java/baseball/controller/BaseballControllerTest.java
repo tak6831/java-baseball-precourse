@@ -32,9 +32,10 @@ class BaseballControllerTest {
 //    플레이어에게 1-9 서로다른 수 입력 받기.
     @Test
     void 플레이어에게_서로다른_수_입력받기(){
-        Player player = baseballController.inputNumberFromPlayer();
         //readLine 테스트를 어떻게 해야하는지?
-//        assertThat(player.toList()).isEmpty();
+//        Player player = baseballController.inputNumberFromPlayer();
+        Player player = baseballController.inputNumberFromPlayerTest("1","2","4");
+        assertThat(player).isInstanceOf(Player.class);
     }
 //    입력 값 검증
     @Test
@@ -61,6 +62,10 @@ class BaseballControllerTest {
         assertThat(baseballController.printScore(new BallCount(1,1))).isEqualTo("낫싱");
     }
 //    정답 시 게임 종료
-//    에러 시 앱 종료
-//    게임 종료시 게임 다시하기 및 앱 종료.
+    @Test
+    void 쓰리스트라이크종료(){
+        assertThatThrownBy(() -> {
+            baseballController.gameSet(new BallCount(3,0));
+        }).isInstanceOf(InterruptedException.class);
+    }
 }
