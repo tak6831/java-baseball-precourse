@@ -1,16 +1,15 @@
 package baseball.controller;
 
+import java.util.Random;
+
+import camp.nextstep.edu.missionutils.Randoms;
+
 public class BaseballController {
 
-//    임의의 1-9까지 서로다른 수 생성
-    public int makeRandomNumber(){
-        double a = Math.random();
-        System.out.println(a);
-        return 0;
-    }
+    Randoms randoms;
 //    생성된 수 배열에 넣기.
-    public void putNumberToArray(){
-
+    public int putNumberToArray(int start, int end){
+        return randoms.pickNumberInRange(start,end);
     }
 //    플레이어에게 1-9 서로다른 수 입력 받기.
     public void inputNumberFromPlayer(){
