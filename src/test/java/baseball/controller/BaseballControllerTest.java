@@ -1,6 +1,7 @@
 package baseball.controller;
 
 import baseball.entity.Ball;
+import baseball.entity.BallCount;
 import baseball.entity.Player;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Assertions;
@@ -31,8 +32,9 @@ class BaseballControllerTest {
 //    플레이어에게 1-9 서로다른 수 입력 받기.
     @Test
     void 플레이어에게_서로다른_수_입력받기(){
-
         Player player = baseballController.inputNumberFromPlayer();
+        //readLine 테스트를 어떻게 해야하는지?
+//        assertThat(player.toList()).isEmpty();
     }
 //    입력 값 검증
     @Test
@@ -48,39 +50,17 @@ class BaseballControllerTest {
         }).isInstanceOf(IllegalArgumentException.class);
     }
 //    검증 후 결과 값 리턴
+    @Test
+    void 볼카운트확인() {
+        BallCount ballCount = baseballController.checkBallCount(new Ball(1, 2, 9), new Player(1, 3, 2));
+//        assertThat(ballCount.getStrike()).isEqualTo(1);
+        assertThat(ballCount.getBall()).isEqualTo(1);
+    }
+    @Test
+    void 결과값출력(){
+        assertThat(baseballController.printScore(new BallCount(1,1))).isEqualTo("낫싱");
+    }
 //    정답 시 게임 종료
 //    에러 시 앱 종료
 //    게임 종료시 게임 다시하기 및 앱 종료.
-
-    @Test
-    void makeRandomNumber() {
-    }
-
-    @Test
-    void putNumberToArray() {
-    }
-
-    @Test
-    void inputNumberFromPlayer() {
-    }
-
-    @Test
-    void confirmNumber() {
-    }
-
-    @Test
-    void printScore() {
-    }
-
-    @Test
-    void gameSet() {
-    }
-
-    @Test
-    void errorToPowerOff() {
-    }
-
-    @Test
-    void retryAndPowerOff() {
-    }
 }

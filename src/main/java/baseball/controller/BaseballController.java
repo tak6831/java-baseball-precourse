@@ -1,6 +1,7 @@
 package baseball.controller;
 
 import baseball.entity.Ball;
+import baseball.entity.BallCount;
 import baseball.entity.Player;
 
 import java.lang.reflect.Array;
@@ -65,8 +66,29 @@ public class BaseballController {
         }
     }
 //    검증 후 결과 값 리턴
-    public void printScore(){
+    public BallCount checkBallCount(Ball ball, Player player){
+        int strikeScore = 0;
+        int ballScore = 0;
 
+        for(int i=0;i<player.toList().size();i++){
+            if(player.toList().get(i)==ball.toList().get(i)){
+                strikeScore++;
+                continue;
+            }
+            if(ball.toList().contains(player.toList().get(i))){
+                ballScore++;
+                continue;
+            };
+        }
+
+        return new BallCount(strikeScore,ballScore);
+    }
+    public String printScore(BallCount ballCount){
+        String result = "";
+        if(ballCount.getBall()!=0) result += ballCount.getBall()+"볼";
+        if(ballCount.getStrike()!=0) result += ballCount.getStrike()+"스트라이크";
+        if(result=="") result = "낫싱";
+        return result;
     }
 //    정답 시 게임종료
     public void gameSet(){

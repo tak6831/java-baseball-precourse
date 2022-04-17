@@ -1,5 +1,8 @@
 package baseball.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ball {
     private int firstNumber;
     private int secondNumber;
@@ -50,5 +53,12 @@ public class Ball {
     public boolean isReady(){
         if(firstNumber==0 || secondNumber==0 || thirdNumber ==0 ) return false;
         return true;
+    }
+    public List<Integer> toList(){
+        List<Integer> list = new ArrayList<>();
+        list.add(firstNumber);
+        list.add(secondNumber);
+        list.add(thirdNumber);
+        return list;
     }
 }
